@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Foto Duki — Preview</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root { --lime: #D3FD50; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #000; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+    /* full-bleed stage */
+    #stage { position: fixed; inset: 0; }
+    iframe { width: 100%; height: 100%; border: 0; display: block; background: #000; }
+
+    /* --- desktop-only: phone frame when previewing mobile --- */
+    body[data-view="mobile"][data-device="desktop"] #stage {
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(120% 120% at 50% 0%, #141414 0%, #000 70%);
+    }
+    body[data-view="mobile"][data-device="desktop"] #phone {
+      width: 390px; height: 844px; max-height: 92vh;
+      border-radius: 44px; padding: 12px;
+      background: #1c1c1e;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 2px #2c2c2e inset;
+      position: relative;
+    }
+    body[data-view="mobile"][data-device="desktop"] #phone::before {
+      content: ""; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 26px; background: #000; border-radius: 14px; z-index: 2;
+    }
+    body[data-view="mobile"][data-device="desktop"] #phone iframe {
+      border-radius: 32px; height: 100%;
+    }
+    /* when the phone frame is off (desktop view or real phone) the iframe fills the stage */
+    #phone { width: 100%; height: 100%; }
+
+    /* --- toggle (hidden on real phones) --- */
+    #toggle {
+      position: fixed; z-index: 50; top: 16px; right: 16px;
+      display: inline-flex; gap: 2px; padding: 4px;
+      background: rgba(20,20,20,.72); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.09); border-radius: 999px;
+      font-size: 13px; font-weight: 600; letter-spacing: .01em;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+    #toggle button {
+      appearance: none; border: 0; cursor: pointer;
+      padding: 8px 16px; border-radius: 999px; background: transparent;
+      color: #9a9a9a; font: inherit; transition: color .15s, background .15s;
+      display: inline-flex; align-items: center; gap: 7px;
+    }
+    #toggle button svg { width: 15px; height: 15px; }
+    #toggle button.active { background: var(--lime); color: #0a0a0a; }
+    body[data-device="mobile"] #toggle { display: none; }
+
+    /* tiny caption under the phone on desktop mobile-preview */
+    #hint {
+      position: fixed; z-index: 40; bottom: 18px; left: 50%; transform: translateX(-50%);
+      color: #666; font-size: 12px; letter-spacing: .02em; pointer-events: none;
+      opacity: 0; transition: opacity .2s;
+    }
+    body[data-view="mobile"][data-device="desktop"] #hint { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div id="toggle" role="tablist" aria-label="Prikaz">
+    <button id="btn-desktop" class="active" role="tab" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+      Desktop
+    </button>
+    <button id="btn-mobile" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+      Mobilni
+    </button>
+  </div>
+
+  <div id="stage">
+    <div id="phone"><iframe id="frame" title="Foto Duki preview" src="desktop.html"></iframe></div>
+  </div>
+
+  <div id="hint">Pregled mobilnog dizajna</div>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var frame = document.getElementById('frame');
+      var btnD = document.getElementById('btn-desktop');
+      var btnM = document.getElementById('btn-mobile');
+
+      // Detect a real phone: narrow viewport + coarse pointer.
+      var isPhone = window.matchMedia('(max-width: 768px)').matches &&
+                    window.matchMedia('(pointer: coarse)').matches;
+      body.setAttribute('data-device', isPhone ? 'mobile' : 'desktop');
+
+      // The mobile design is a fixed 390px canvas. Locking the layout viewport
+      // to 390 makes every phone (SE 375 … Pro Max 430, Androids) scale it to
+      // fit edge-to-edge instead of clipping. Desktop keeps device-width.
+      if (isPhone) {
+        var vp = document.querySelector('meta[name="viewport"]');
+        if (vp) vp.setAttribute('content', 'width=390, viewport-fit=cover');
+      }
+
+      function show(view) {
+        var target = view === 'mobile' ? 'mobile.html' : 'desktop.html';
+        // avoid reloading the same doc
+        if (!frame.src.endsWith(target)) frame.src = target;
+        body.setAttribute('data-view', view);
+        var m = view === 'mobile';
+        btnM.classList.toggle('active', m);
+        btnD.classList.toggle('active', !m);
+        btnM.setAttribute('aria-selected', m);
+        btnD.setAttribute('aria-selected', !m);
+        try { history.replaceState(null, '', m ? '#mobilni' : '#desktop'); } catch (e) {}
+      }
+
+      // Real phones start on the mobile design; everything else on desktop.
+      var initial = isPhone || location.hash === '#mobilni' ? 'mobile' : 'desktop';
+      show(initial);
+
+      btnD.addEventListener('click', function () { show('desktop'); });
+      btnM.addEventListener('click', function () { show('mobile'); });
+    })();
+  </script>
+</body>
+</html>
