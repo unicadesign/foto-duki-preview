@@ -1,127 +1,617 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Foto Duki — Preview</title>
-  <meta name="robots" content="noindex, nofollow">
-  <style>
-    :root { --lime: #D3FD50; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; background: #000; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Foto Duki — Fotografisanje događaja · Novi Sad</title>
+<meta name="description" content="Foto Duki — fotografisanje venčanja, krštenja i rođendana. Novi Sad i okolina. Paketi, specijalni efekti, galerija u klijentskom portalu.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --lime:#D3FD50;
+  --ink:#000000;
+  --bg:#0a0a0a;
+  --bg-2:#0e0e0e;
+  --card:#141414;
+  --card-2:#1a1a1a;
+  --line:rgba(255,255,255,.10);
+  --line-2:rgba(255,255,255,.16);
+  --white:#ffffff;
+  --muted:#b5b5b5;
+  --dim:#8a8a8a;
+  --faint:#cfcfcf;
+  --radius:22px;
+  --radius-sm:14px;
+  --maxw:1200px;
+  --pad:clamp(18px,5vw,40px);
+  --font:'Onest',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);color:var(--white);font-family:var(--font);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+section{position:relative}
+.lime{color:var(--lime)}
+.eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:600}
 
-    /* full-bleed stage */
-    #stage { position: fixed; inset: 0; }
-    iframe { width: 100%; height: 100%; border: 0; display: block; background: #000; }
+/* section titles */
+.stitle{font-weight:800;line-height:.98;letter-spacing:-.02em;
+  font-size:clamp(2rem,7vw,3.6rem);text-transform:uppercase}
+.ssub{color:var(--muted);max-width:52ch;margin-top:14px;font-size:clamp(.95rem,2.4vw,1.05rem)}
 
-    /* --- desktop-only: phone frame when previewing mobile --- */
-    body[data-view="mobile"][data-device="desktop"] #stage {
-      display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(120% 120% at 50% 0%, #141414 0%, #000 70%);
-    }
-    body[data-view="mobile"][data-device="desktop"] #phone {
-      width: 390px; height: 844px; max-height: 92vh;
-      border-radius: 44px; padding: 12px;
-      background: #1c1c1e;
-      box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 2px #2c2c2e inset;
-      position: relative;
-    }
-    body[data-view="mobile"][data-device="desktop"] #phone::before {
-      content: ""; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 26px; background: #000; border-radius: 14px; z-index: 2;
-    }
-    body[data-view="mobile"][data-device="desktop"] #phone iframe {
-      border-radius: 32px; height: 100%;
-    }
-    /* when the phone frame is off (desktop view or real phone) the iframe fills the stage */
-    #phone { width: 100%; height: 100%; }
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:15px 26px;border-radius:999px;font-weight:700;font-size:.98rem;border:1px solid transparent;
+  transition:transform .15s ease,background .15s,color .15s,border-color .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-lime{background:var(--lime);color:#0a0a0a}
+.btn-lime:hover{background:#e2ff74}
+.btn-ghost{background:transparent;color:#fff;border-color:var(--line-2)}
+.btn-ghost:hover{border-color:#fff}
 
-    /* --- toggle (hidden on real phones) --- */
-    #toggle {
-      position: fixed; z-index: 50; top: 16px; right: 16px;
-      display: inline-flex; gap: 2px; padding: 4px;
-      background: rgba(20,20,20,.72); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,.09); border-radius: 999px;
-      font-size: 13px; font-weight: 600; letter-spacing: .01em;
-      box-shadow: 0 8px 24px rgba(0,0,0,.4);
-    }
-    #toggle button {
-      appearance: none; border: 0; cursor: pointer;
-      padding: 8px 16px; border-radius: 999px; background: transparent;
-      color: #9a9a9a; font: inherit; transition: color .15s, background .15s;
-      display: inline-flex; align-items: center; gap: 7px;
-    }
-    #toggle button svg { width: 15px; height: 15px; }
-    #toggle button.active { background: var(--lime); color: #0a0a0a; }
-    body[data-device="mobile"] #toggle { display: none; }
+/* ============ NAV ============ */
+.nav-outer{position:sticky;top:0;z-index:100;padding:14px var(--pad) 0}
+.nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;
+  gap:18px;padding:10px 12px 10px 22px;border-radius:999px;
+  background:rgba(14,14,14,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--line)}
+.nav .logo img{height:30px;width:auto}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:.92rem;color:var(--faint);font-weight:500;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.nav-phone{padding:11px 20px;border-radius:999px;background:var(--lime);color:#0a0a0a;font-weight:700;font-size:.9rem}
+.burger{display:none;width:44px;height:44px;border-radius:999px;background:transparent;border:1px solid var(--line-2);
+  color:#fff;align-items:center;justify-content:center}
+.burger svg{width:20px;height:20px}
+.mobile-menu{display:none}
 
-    /* tiny caption under the phone on desktop mobile-preview */
-    #hint {
-      position: fixed; z-index: 40; bottom: 18px; left: 50%; transform: translateX(-50%);
-      color: #666; font-size: 12px; letter-spacing: .02em; pointer-events: none;
-      opacity: 0; transition: opacity .2s;
-    }
-    body[data-view="mobile"][data-device="desktop"] #hint { opacity: 1; }
-  </style>
+/* ============ HERO ============ */
+.hero-outer{padding:12px var(--pad) 0}
+.hero{max-width:var(--maxw);margin:-64px auto 0;position:relative;border-radius:var(--radius);overflow:hidden;
+  min-height:min(88vh,760px);display:flex;align-items:flex-end;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:url('assets/img/00-401a7599.jpg') center 28%/cover no-repeat}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 38%,rgba(0,0,0,.72) 100%)}
+.hero-inner{padding:clamp(24px,5vw,54px);width:100%}
+.hero h1{font-weight:800;letter-spacing:-.025em;line-height:.94;margin:16px 0 26px;
+  font-size:clamp(2.7rem,10.5vw,6.2rem);text-transform:uppercase}
+.hero h1 .thin{font-weight:500;text-transform:none;letter-spacing:-.01em;
+  display:block;font-size:clamp(1.9rem,6.5vw,3.6rem);color:#f3f3f3}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ============ MARQUEE ============ */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:20px 0;margin-top:0;background:var(--ink)}
+.marquee-track{display:flex;gap:0;width:max-content;animation:scroll 26s linear infinite}
+.marquee-track span{font-size:clamp(1.3rem,4vw,2rem);font-weight:700;text-transform:uppercase;
+  letter-spacing:.01em;padding:0 26px;display:inline-flex;align-items:center;gap:52px;white-space:nowrap}
+.marquee-track b{color:var(--lime);font-weight:400}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============ SECTION SPACING ============ */
+.block{padding-block:clamp(58px,9vw,110px)}
+
+/* ============ DOGAĐAJ / CENOVNIK ============ */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 30px}
+.tab{padding:11px 22px;border-radius:999px;background:var(--card);border:1px solid var(--line);
+  color:var(--faint);font-weight:600;font-size:.92rem;transition:.15s}
+.tab:hover{border-color:var(--line-2)}
+.tab.active{background:var(--lime);color:#0a0a0a;border-color:var(--lime)}
+.price-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#111,#0c0c0c);
+  padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:1.1fr 1fr;gap:30px;position:relative;overflow:hidden}
+.price-card::after{content:"";position:absolute;right:-140px;top:-140px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(211,253,80,.16),transparent 68%)}
+.pc-head{display:flex;flex-direction:column;gap:8px}
+.pc-kicker{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.pc-dur{display:inline-flex;align-items:center;width:fit-content;gap:7px;font-size:.82rem;color:#0a0a0a;
+  background:var(--lime);padding:5px 13px;border-radius:999px;font-weight:700;margin-top:4px}
+.pc-price{font-size:clamp(3rem,9vw,4.6rem);font-weight:800;letter-spacing:-.03em;line-height:1}
+.pc-price small{font-size:1rem;color:var(--muted);font-weight:500}
+.pc-list{list-style:none;display:flex;flex-direction:column;gap:14px;align-self:center}
+.pc-list li{display:flex;gap:12px;align-items:flex-start;color:var(--faint);font-size:.98rem}
+.pc-list li::before{content:"";flex:0 0 auto;width:18px;height:18px;margin-top:2px;border-radius:50%;
+  background:var(--lime);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z'/%3E%3C/svg%3E") center/86% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z'/%3E%3C/svg%3E") center/86% no-repeat}
+.pc-cta{margin-top:22px;grid-column:1/-1;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.pc-note{color:var(--dim);font-size:.85rem}
+
+/* ============ EFEKTI ============ */
+.efx-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+.efx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.efx{position:relative;border-radius:var(--radius-sm);overflow:hidden;min-height:230px;display:flex;
+  align-items:flex-end;isolation:isolate;border:1px solid var(--line)}
+.efx img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.efx::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.86) 100%)}
+.efx-body{padding:18px 20px}
+.efx-no{font-size:.68rem;letter-spacing:.2em;color:var(--lime);font-weight:700;text-transform:uppercase}
+.efx h3{font-size:1.15rem;font-weight:800;margin:4px 0 6px;text-transform:uppercase;letter-spacing:-.01em}
+.efx p{font-size:.86rem;color:var(--faint);line-height:1.45}
+.efx.feature{grid-row:span 2;min-height:480px}
+
+/* ============ DELIVERY BAND ============ */
+.deliver{background:var(--lime);color:#0a0a0a;border-radius:var(--radius)}
+.deliver .wrap{padding-block:clamp(40px,6vw,64px)}
+.deliver-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
+.deliver h2{font-size:clamp(1.9rem,6vw,3.2rem);font-weight:800;letter-spacing:-.02em;line-height:1;text-transform:uppercase}
+.deliver p{margin-top:16px;font-size:1.02rem;max-width:44ch;color:#161c05}
+.steps{display:flex;flex-direction:column;gap:2px}
+.step{display:flex;gap:16px;align-items:center;padding:16px 4px;border-top:1px solid rgba(0,0,0,.18)}
+.step:last-child{border-bottom:1px solid rgba(0,0,0,.18)}
+.step b{font-size:.78rem;font-weight:800;opacity:.55;min-width:26px}
+.step span{font-weight:600;font-size:1rem}
+
+/* ============ GALERIJA ============ */
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:12px}
+.gal-grid::before{content:"";grid-column:1;grid-row:1;aspect-ratio:1}
+.tile{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1;border:1px solid var(--line);background:var(--card)}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.tile:hover img{transform:scale(1.06)}
+.tile span{position:absolute;left:10px;bottom:8px;font-weight:700;font-size:.8rem;z-index:2;
+  text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.tile-cta{grid-column:span 2;grid-row:span 1;aspect-ratio:auto;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;background:#0d0d0d;text-align:center;padding:20px}
+.tile-cta strong{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.tile-cta a{color:var(--lime);font-weight:700;font-size:.95rem}
+
+/* ============ O MENI ============ */
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,60px);align-items:center}
+.about-photo{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5}
+.about-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.about h2{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
+.about p{margin:18px 0 26px;color:var(--muted);font-size:1.02rem;line-height:1.7}
+.courses{list-style:none;display:flex;flex-direction:column}
+.course{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 2px;
+  border-top:1px solid var(--line)}
+.course:last-child{border-bottom:1px solid var(--line)}
+.course b{font-weight:600;font-size:1.02rem}
+.course span{font-size:.68rem;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;font-weight:700}
+
+/* ============ SASTAVI PAKET ============ */
+.builder{border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-2);
+  padding:clamp(22px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px)}
+.builder .tag{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lime);font-weight:700;margin-bottom:14px}
+.builder h2{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:.98}
+.builder .lead{color:var(--muted);margin-top:16px;font-size:1rem;max-width:42ch}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.field select{appearance:none;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23b5b5b5' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center/20px;
+  color:#fff;border:1px solid var(--line-2);border-radius:12px;padding:14px 40px 14px 15px;font-size:.95rem}
+.field select:focus{outline:none;border-color:var(--lime)}
+.summary{margin-top:22px;background:var(--lime);color:#0a0a0a;border-radius:var(--radius-sm);padding:20px 22px}
+.summary .sk{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;opacity:.6}
+.summary .sv{font-weight:700;font-size:1.05rem;margin-top:6px;line-height:1.4}
+.builder .btn-lime{margin-top:18px;width:100%}
+.builder-ok{display:none;margin-top:14px;color:var(--lime);font-size:.92rem;font-weight:600}
+
+/* ============ FAQ ============ */
+.faq-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.faq{border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:24px 4px;background:transparent;border:0;color:#fff;text-align:left;font-size:clamp(1rem,2.6vw,1.25rem);
+  font-weight:700;text-transform:uppercase;letter-spacing:-.01em}
+.faq-q .ico{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--card);border:1px solid var(--line-2);
+  display:grid;place-items:center;font-size:1.3rem;font-weight:400;transition:.2s;color:var(--lime)}
+.faq-item.open .faq-q .ico{background:var(--lime);color:#0a0a0a;transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-a p{padding:0 4px 26px;color:var(--muted);max-width:70ch;font-size:1rem;line-height:1.65}
+
+/* ============ FOOTER ============ */
+.footer{border-top:1px solid var(--line);padding-block:clamp(44px,6vw,70px)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px}
+.footer .logo img{height:34px;margin-bottom:16px}
+.footer .tg{color:var(--muted);max-width:34ch;font-size:.98rem}
+.fcol h4{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:14px}
+.fcol a,.fcol p{color:var(--faint);font-size:.98rem;margin-bottom:8px}
+.fcol a:hover{color:#fff}
+.socials{display:flex;gap:10px}
+.socials a{width:42px;height:42px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:.15s}
+.socials a:hover{background:var(--lime);color:#0a0a0a;border-color:var(--lime)}
+.socials svg{width:18px;height:18px}
+.footer-bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:40px;padding-top:22px;
+  border-top:1px solid var(--line);color:var(--dim);font-size:.85rem}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .nav-links,.nav .nav-phone{display:none}
+  .burger{display:inline-flex}
+  .mobile-menu{display:block;max-width:var(--maxw);margin:8px auto 0;overflow:hidden;max-height:0;transition:max-height .3s ease}
+  .mobile-menu.open{max-height:420px}
+  .mobile-menu-inner{background:rgba(14,14,14,.94);backdrop-filter:blur(16px);border:1px solid var(--line);
+    border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:4px;margin-top:6px}
+  .mobile-menu-inner a{padding:13px 12px;border-radius:12px;font-weight:600;color:var(--faint)}
+  .mobile-menu-inner a:hover{background:var(--card)}
+  .mobile-menu-inner .nav-phone{display:flex;justify-content:center;margin-top:6px}
+  .price-card{grid-template-columns:1fr;gap:22px}
+  .deliver-grid{grid-template-columns:1fr;gap:24px}
+  .about-grid{grid-template-columns:1fr}
+  .about-photo{aspect-ratio:16/10;max-height:340px}
+  .builder{grid-template-columns:1fr}
+  .efx-grid{grid-template-columns:repeat(2,1fr)}
+  .efx.feature{grid-row:auto;min-height:260px;grid-column:1/-1}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer .logo-col{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-grid::before{display:none}
+  .tile-cta{grid-column:1/-1}
+  .efx-grid{grid-template-columns:1fr}
+  .fields{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero{min-height:min(82vh,600px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .marquee-track{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
-  <div id="toggle" role="tablist" aria-label="Prikaz">
-    <button id="btn-desktop" class="active" role="tab" aria-selected="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
-      Desktop
-    </button>
-    <button id="btn-mobile" role="tab" aria-selected="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
-      Mobilni
-    </button>
+
+<!-- ============ NAV ============ -->
+<header class="nav-outer">
+  <nav class="nav">
+    <a href="#top" class="logo" aria-label="Foto Duki"><img src="assets/img/01-c7ecb388.png" alt="Duki Photo"></a>
+    <div class="nav-links">
+      <a href="#cenovnik">Cenovnik</a>
+      <a href="#efekti">Efekti</a>
+      <a href="#galerija">Galerija</a>
+      <a href="#paket">Paket</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="tel:0631117271" class="nav-phone">063 111 7271</a>
+      <button class="burger" id="burger" aria-label="Meni" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="#cenovnik">Cenovnik</a>
+      <a href="#efekti">Efekti</a>
+      <a href="#galerija">Galerija</a>
+      <a href="#paket">Paket</a>
+      <a href="#faq">FAQ</a>
+      <a href="tel:0631117271" class="nav-phone">063 111 7271</a>
+    </div>
   </div>
+</header>
 
-  <div id="stage">
-    <div id="phone"><iframe id="frame" title="Foto Duki preview" src="desktop.html"></iframe></div>
+<!-- ============ HERO ============ -->
+<span id="top"></span>
+<section class="hero-outer">
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Fotografisanje događaja · Novi Sad</p>
+      <h1>Trenuci prolaze.<span class="thin">Fotografije ih <span class="lime">vraćaju.</span></span></h1>
+      <div class="hero-btns">
+        <a href="#cenovnik" class="btn btn-lime">Pogledaj cenovnik</a>
+        <a href="#paket" class="btn btn-ghost">Proveri dostupnost</a>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div id="hint">Pregled mobilnog dizajna</div>
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Venčanja <b>✳</b> Pre venčanja <b>✳</b> Krštenja <b>✳</b> 18. rođendani <b>✳</b> Dečiji rođendani <b>✳</b></span>
+    <span>Venčanja <b>✳</b> Pre venčanja <b>✳</b> Krštenja <b>✳</b> 18. rođendani <b>✳</b> Dečiji rođendani <b>✳</b></span>
+  </div>
+</div>
 
-  <script>
-    (function () {
-      var body = document.body;
-      var frame = document.getElementById('frame');
-      var btnD = document.getElementById('btn-desktop');
-      var btnM = document.getElementById('btn-mobile');
+<!-- ============ DOGAĐAJ / CENOVNIK ============ -->
+<section class="block" id="cenovnik">
+  <div class="wrap">
+    <h2 class="stitle">Koji je vaš <span class="lime">događaj?</span></h2>
+    <p class="ssub">Izaberite tip proslave — cena, trajanje i šta je uključeno prikazuju se odmah.</p>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="price-card" id="priceCard"></div>
+  </div>
+</section>
 
-      // Detect a real phone: narrow viewport + coarse pointer.
-      var isPhone = window.matchMedia('(max-width: 768px)').matches &&
-                    window.matchMedia('(pointer: coarse)').matches;
-      body.setAttribute('data-device', isPhone ? 'mobile' : 'desktop');
+<!-- ============ EFEKTI ============ -->
+<section class="block" id="efekti">
+  <div class="wrap">
+    <div class="efx-head">
+      <div>
+        <h2 class="stitle">Specijalni <span class="lime">efekti</span></h2>
+        <p class="ssub">Trenutak koji sala pamti — prvi ples u laserima, oblak dima ili kiša balona. Efekti se ugovaraju uz termin fotografisanja.</p>
+      </div>
+      <p class="eyebrow" style="text-align:right">dodatak na bilo koji paket · cene na upit</p>
+    </div>
+    <div class="efx-grid">
+      <article class="efx feature">
+        <img src="assets/img/06-4f274e12.jpg" alt="Laser prvi ples">
+        <div class="efx-body">
+          <div class="efx-no">Efekat 01</div>
+          <h3>Laser prvi ples</h3>
+          <p>Zvezdano nebo oko prvog plesa — najtraženiji efekat za svadbe.</p>
+        </div>
+      </article>
+      <article class="efx">
+        <img src="assets/img/07-efaf4e23.jpg" alt="Teški dim">
+        <div class="efx-body">
+          <div class="efx-no">Efekat 02</div>
+          <h3>Teški dim</h3>
+          <p>Ples na oblaku — dim koji se drži poda i ne diže se u salu.</p>
+        </div>
+      </article>
+      <article class="efx">
+        <img src="assets/img/04-8e03fced.jpg" alt="Magla">
+        <div class="efx-body">
+          <div class="efx-no">Efekat 03</div>
+          <h3>Magla</h3>
+          <p>Mekano, difuzno svetlo za dramatične kadrove.</p>
+        </div>
+      </article>
+      <article class="efx">
+        <img src="assets/img/05-863d7e80.jpg" alt="Balončići">
+        <div class="efx-body">
+          <div class="efx-no">Efekat 04</div>
+          <h3>Balončići</h3>
+          <p>Razigrani detalj — omiljen na krštenjima i dečijim rođendanima.</p>
+        </div>
+      </article>
+      <article class="efx">
+        <img src="assets/img/03-255b33fa.jpg" alt="Balon eksplozija">
+        <div class="efx-body">
+          <div class="efx-no">Efekat 05</div>
+          <h3>Balon eksplozija</h3>
+          <p>Finale večeri — kiša konfeta i balona u jednom kadru.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-      // The mobile design is a fixed 390px canvas. Locking the layout viewport
-      // to 390 makes every phone (SE 375 … Pro Max 430, Androids) scale it to
-      // fit edge-to-edge instead of clipping. Desktop keeps device-width.
-      if (isPhone) {
-        var vp = document.querySelector('meta[name="viewport"]');
-        if (vp) vp.setAttribute('content', 'width=390, viewport-fit=cover');
-      }
+<!-- ============ DELIVERY BAND ============ -->
+<section class="hero-outer">
+  <div class="deliver">
+    <div class="wrap">
+      <div class="deliver-grid">
+        <div>
+          <h2>Fotografije za 7–14 dana.</h2>
+          <p>Bez USB-a i čekanja — dobijate šifru i link, a cela galerija vas čeka u klijentskom portalu, u punoj rezoluciji.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><b>01</b><span>Fotografišemo vaš događaj</span></div>
+          <div class="step"><b>02</b><span>Obrada — 7 do 14 dana</span></div>
+          <div class="step"><b>03</b><span>Šifra + link — galerija u klijentskom portalu</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      function show(view) {
-        var target = view === 'mobile' ? 'mobile.html' : 'desktop.html';
-        // avoid reloading the same doc
-        if (!frame.src.endsWith(target)) frame.src = target;
-        body.setAttribute('data-view', view);
-        var m = view === 'mobile';
-        btnM.classList.toggle('active', m);
-        btnD.classList.toggle('active', !m);
-        btnM.setAttribute('aria-selected', m);
-        btnD.setAttribute('aria-selected', !m);
-        try { history.replaceState(null, '', m ? '#mobilni' : '#desktop'); } catch (e) {}
-      }
+<!-- ============ GALERIJA ============ -->
+<section class="block" id="galerija">
+  <div class="wrap">
+    <div class="gal-head">
+      <h2 class="stitle">Galerija</h2>
+      <p class="eyebrow">Kontakt-šit · 2024 — 2026</p>
+    </div>
+    <div class="gal-grid">
+      <div class="tile"><img src="assets/img/00-401a7599.jpg" alt=""><span>Venčanja</span></div>
+      <div class="tile"><img src="assets/img/05-863d7e80.jpg" alt=""><span>Krštenja</span></div>
+      <div class="tile"><img src="assets/img/03-255b33fa.jpg" alt=""><span>Dečiji</span></div>
+      <div class="tile"><img src="assets/img/06-4f274e12.jpg" alt=""><span>Pre venčanja</span></div>
+      <div class="tile tile-cta">
+        <strong>Vaš <span class="lime">događaj?</span></strong>
+        <a href="tel:0631117271">063 111 7271 →</a>
+      </div>
+      <div class="tile"><img src="assets/img/07-efaf4e23.jpg" alt=""><span>18. rođendani</span></div>
+      <div class="tile"><img src="assets/img/04-8e03fced.jpg" alt=""><span>Portret</span></div>
+      <div class="tile"><img src="assets/img/00-401a7599.jpg" alt=""><span>Detalji</span></div>
+    </div>
+  </div>
+</section>
 
-      // Real phones start on the mobile design; everything else on desktop.
-      var initial = isPhone || location.hash === '#mobilni' ? 'mobile' : 'desktop';
-      show(initial);
+<!-- ============ O MENI ============ -->
+<section class="block about" id="omeni">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photo"><img src="assets/img/02-85fd4b17.jpg" alt="Duško Milankov · Foto Duki"></div>
+      <div>
+        <h2>O meni <span class="lime">✳</span></h2>
+        <p>Ja sam Duško Milankov i fotografijom sam počeo da se bavim iz hobija. Ubrzo sam se odlučio da upišem kurs kako bih stekao znanje i veštine, gde sam prošao od početnog, studijskog do terenskog kursa za fotografisanje. Nakon toga sam uzeo profesionalnu opremu i počeo da se bavim fotografisanjem većih događaja. Smatram da je fotografija jedini vid da zamrznete vaše dragocene trenutke i da time sačuvate vaše uspomene kojima možete da se divite i razmenjujete sa prijateljima i familijom kako biste se rado sećali na njih.</p>
+        <ul class="courses">
+          <li class="course"><b>Početni kurs fotografije</b><span>Sertifikat 01</span></li>
+          <li class="course"><b>Studijski kurs</b><span>Sertifikat 02</span></li>
+          <li class="course"><b>Terenski kurs</b><span>Sertifikat 03</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-      btnD.addEventListener('click', function () { show('desktop'); });
-      btnM.addEventListener('click', function () { show('mobile'); });
-    })();
-  </script>
+<!-- ============ SASTAVI PAKET ============ -->
+<section class="block" id="paket">
+  <div class="wrap">
+    <div class="builder">
+      <div>
+        <span class="tag">✳ Upit za par minuta</span>
+        <h2>Sastavi <span class="lime">svoj paket.</span></h2>
+        <p class="lead">Izaberite tip događaja, trajanje i album — okvirnu ponudu dobijate u odgovoru na upit, bez skrivenih stavki. Dostupnost datuma potvrđujem odmah.</p>
+      </div>
+      <div>
+        <div class="fields">
+          <div class="field">
+            <label for="f-tip">Tip događaja</label>
+            <select id="f-tip"><option>Venčanje</option><option>Krštenje</option><option>18. rođendan</option><option>Dečiji rođendan</option></select>
+          </div>
+          <div class="field">
+            <label for="f-traj">Trajanje</label>
+            <select id="f-traj"><option>Do 4 sata</option><option>Do 6 sati</option><option>Ceo dan</option></select>
+          </div>
+          <div class="field">
+            <label for="f-mesto">Mesto proslave</label>
+            <select id="f-mesto"><option>Novi Sad</option><option>Okolina Novog Sada</option><option>Van Novog Sada</option></select>
+          </div>
+          <div class="field">
+            <label for="f-album">Štampani album</label>
+            <select id="f-album"><option>Da — štampani album</option><option>Bez albuma</option></select>
+          </div>
+        </div>
+        <div class="summary">
+          <div class="sk">Vaš paket ✳</div>
+          <div class="sv" id="summary">Venčanje · do 4 sata · Novi Sad · sa foto-albumom</div>
+        </div>
+        <button class="btn btn-lime" id="sendBtn">Pošalji upit sa ovim paketom</button>
+        <div class="builder-ok" id="builderOk">Upit je poslat. Duško se javlja u toku dana sa ponudom i potvrdom termina.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <h2 class="stitle">Česta pitanja</h2>
+      <p class="eyebrow">sve o terminima, cenama i isporuci</p>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="logo-col logo">
+        <img src="assets/img/01-c7ecb388.png" alt="Duki Photo">
+        <p class="tg">Fotografisanje venčanja, krštenja i rođendana — Novi Sad i okolina.</p>
+      </div>
+      <div class="fcol">
+        <h4>Kontakt podaci</h4>
+        <p><a href="tel:0631117271">Tel: 063 111 7271</a></p>
+        <p><a href="mailto:duskomilankov@gmail.com">duskomilankov@gmail.com</a></p>
+      </div>
+      <div class="fcol">
+        <h4>Pratite nas</h4>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Foto Duki</span>
+      <span>Novi Sad · Sva prava zadržana</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- packages (real data only where confirmed) ---------- */
+const PACKAGES=[
+  {id:"mladenci",tab:"Mladenci",kicker:"Mladenci",dur:"2 sata",price:"€200",
+   list:["1 lokacija u Novom Sadu","Osnovna obrada fotografija","Link za preuzimanje"],
+   note:"van Novog Sada — putni trošak"},
+  {id:"crkva",tab:"Crkva + opština",kicker:"Crkva + opština",dur:"po dogovoru",price:"na upit",
+   list:["Obred u crkvi i/ili opštini","Termin i lokacija po dogovoru","Galerija u klijentskom portalu"],
+   note:"cena i detalji u ponudi na upit"},
+  {id:"svadbarski",tab:"Svadbarski",kicker:"Svadbarski paket",dur:"ceo dan",price:"€400",
+   list:["Celodnevno praćenje proslave","Obrada 7–14 dana","Galerija u punoj rezoluciji"],
+   note:"tačan obim paketa potvrđujem u ponudi"},
+  {id:"krstenje",tab:"Krštenje",kicker:"Krštenje",dur:"po dogovoru",price:"na upit",
+   list:["Obred i proslava","Termin po dogovoru","Galerija u klijentskom portalu"],
+   note:"cena i detalji u ponudi na upit"},
+  {id:"punoletstvo",tab:"Punoletstvo",kicker:"Punoletstvo / 18. rođendan",dur:"po dogovoru",price:"na upit",
+   list:["Proslava 18. rođendana","Termin i lokacija po dogovoru","Mogući specijalni efekti"],
+   note:"cena i detalji u ponudi na upit"}
+];
+const tabsEl=document.getElementById('tabs'), cardEl=document.getElementById('priceCard');
+function renderCard(p){
+  const price = p.price.startsWith('€')
+    ? `<div class="pc-price">${p.price} <small>/ ${p.dur}</small></div>`
+    : `<div class="pc-price" style="font-size:clamp(2rem,6vw,2.8rem)">Cena na upit</div>`;
+  cardEl.innerHTML=`
+    <div class="pc-head">
+      <span class="pc-kicker">${p.kicker}</span>
+      <span class="pc-dur">${p.dur}</span>
+      ${price}
+    </div>
+    <ul class="pc-list">${p.list.map(i=>`<li>${i}</li>`).join('')}</ul>
+    <div class="pc-cta">
+      <a href="#paket" class="btn btn-lime">Rezerviši ovaj paket</a>
+      <span class="pc-note">${p.note}</span>
+    </div>`;
+}
+PACKAGES.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='tab'+(i===0?' active':''); b.textContent=p.tab; b.setAttribute('role','tab');
+  b.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    b.classList.add('active'); renderCard(p);};
+  tabsEl.appendChild(b);
+});
+renderCard(PACKAGES[0]);
+
+/* ---------- FAQ (answers verbatim where captured; others synthesized from on-page facts) ---------- */
+const FAQ=[
+  {q:"Da li fotografišete van Novog Sada?",
+   a:"Da — paketi podrazumevaju lokacije u Novom Sadu, a za termine van grada dodaje se samo putni trošak."},
+  {q:"Kada i kako dobijamo fotografije?",
+   a:"Obrada traje 7 do 14 dana. Bez USB-a i čekanja — dobijate šifru i link, a cela galerija vas čeka u klijentskom portalu, u punoj rezoluciji."},
+  {q:"Šta pokriva Svadbarski paket od €400?",
+   a:"Celodnevno praćenje proslave sa obradom i galerijom u punoj rezoluciji. Tačan obim i sve stavke potvrđujem u ponudi na upit."},
+  {q:"Mogu li da dodam specijalne efekte na paket?",
+   a:"Da — laser za prvi ples, teški dim, magla i baloni su dodatak na bilo koji paket. Efekti se ugovaraju uz termin fotografisanja, cena na upit."},
+  {q:"Kako rezervišem termin?",
+   a:"Pošaljite upit sa željenim tipom proslave i datumom kroz „Sastavi svoj paket“. Duško potvrđuje dostupnost termina i šalje okvirnu ponudu u toku dana."}
+];
+const faqEl=document.getElementById('faq');
+FAQ.forEach((f,i)=>{
+  const it=document.createElement('div');
+  it.className='faq-item'+(i===0?' open':'');
+  it.innerHTML=`<button class="faq-q">${f.q}<span class="ico">${i===0?'−':'+'}</span></button><div class="faq-a"><p>${f.a}</p></div>`;
+  const a=it.querySelector('.faq-a'), q=it.querySelector('.faq-q'), ico=it.querySelector('.ico');
+  q.onclick=()=>{
+    const open=it.classList.toggle('open');
+    ico.textContent=open?'−':'+';
+    a.style.maxHeight=open?a.scrollHeight+'px':0;
+  };
+  faqEl.appendChild(it);
+  if(i===0) requestAnimationFrame(()=>a.style.maxHeight=a.scrollHeight+'px');
+});
+
+/* ---------- package builder summary ---------- */
+const tip=document.getElementById('f-tip'),traj=document.getElementById('f-traj'),
+  mesto=document.getElementById('f-mesto'),album=document.getElementById('f-album'),
+  sumEl=document.getElementById('summary');
+function upd(){
+  const alb = album.value.startsWith('Da') ? 'sa foto-albumom' : 'bez albuma';
+  sumEl.textContent=`${tip.value} · ${traj.value.toLowerCase()} · ${mesto.value} · ${alb}`;
+}
+[tip,traj,mesto,album].forEach(s=>s.addEventListener('change',upd));
+document.getElementById('sendBtn').onclick=()=>{
+  document.getElementById('builderOk').style.display='block';
+};
+
+/* ---------- mobile menu ---------- */
+const burger=document.getElementById('burger'),mm=document.getElementById('mobileMenu');
+burger.onclick=()=>{const o=mm.classList.toggle('open');burger.setAttribute('aria-expanded',o);};
+mm.querySelectorAll('a').forEach(a=>a.onclick=()=>{mm.classList.remove('open');burger.setAttribute('aria-expanded',false);});
+</script>
 </body>
 </html>
