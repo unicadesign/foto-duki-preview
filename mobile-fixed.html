@@ -347,17 +347,17 @@ for (var r = 0; r < 2; r++) {
 }
 
 var EFF = [
-  ['01', 'Laser prvi ples', 'Zvezdano nebo oko prvog plesa — najtraženiji efekat za svadbe.', 'photos/18-rodjendan-card.jpg', 190],
-  ['02', 'Teški dim', 'Ples na oblaku — dim koji se drži poda.', 'photos/g05.jpg', 150],
-  ['03', 'Magla', 'Mekano, difuzno svetlo za dramatične kadrove.', 'photos/g04.jpg', 150],
-  ['04', 'Balončići', 'Razigrani detalj za krštenja i dečije rođendane.', 'photos/g11.jpg', 150],
-  ['05', 'Balon eksplozija', 'Finale večeri — kiša konfeta i balona.', 'photos/g09.jpg', 150]
+  ['01', 'Laser prvi ples', 'Zvezdano nebo oko prvog plesa — najtraženiji efekat za svadbe.', 'photos/laser-prvi-ples-foto-duki.png', 190, 'Mladenci u zagrljaju pod zelenim laserima — prvi ples, Foto Duki Novi Sad'],
+  ['02', 'Teški dim', 'Ples na oblaku — dim koji se drži poda.', 'photos/teski-dim-foto-duki.png', 150, 'Mladenci u gustom dimu na podijumu — specijalni efekti, Foto Duki'],
+  ['03', 'Magla', 'Mekano, difuzno svetlo za dramatične kadrove.', 'photos/magla-foto-duki.png', 150, 'Silueta mladenaca u niskoj magli — atmosfera, Foto Duki'],
+  ['04', 'Balončići', 'Razigrani detalj za krštenja i dečije rođendane.', 'photos/baloncici-foto-duki.png', 150, 'Mladenci okruženi balončićima od sapunice — Foto Duki'],
+  ['05', 'Balon eksplozija', 'Finale večeri — kiša konfeta i balona.', 'photos/balon-eksplozija-foto-duki.png', 150, 'Mladenci ispod eksplozije balona sa konfetama — Foto Duki']
 ];
 var effWrap = document.getElementById('effects');
 EFF.forEach(function (e) {
   var d = document.createElement('div');
   d.className = 'eff-card';
-  d.innerHTML = '<div style="height:' + e[4] + 'px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="' + e[3] + '" alt=""></div>' +
+  d.innerHTML = '<div style="height:' + e[4] + 'px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="' + e[3] + '" alt="' + e[5] + '"></div>' +
     '<div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:600;letter-spacing:.2em;color:#D3FD50">EFEKAT ' + e[0] + '</span><span style="font:800 21px/1 Onest,sans-serif;text-transform:uppercase">' + e[1] + '</span><span style="font:300 13px/1.55 Onest,sans-serif;color:#b5b5b5">' + e[2] + '</span></div>';
   effWrap.appendChild(d);
 });
