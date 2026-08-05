@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="sr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Foto Duki — Fotografisanje događaja · Novi Sad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("a/63e12ed2-50e6-4df2-8653-3a60b03bbd8a.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("a/71a55226-8686-46eb-a888-8ab8e2487f23.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("a/2e01c143-e8dc-4b11-8647-1da6a404d945.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("a/5f3c5390-a614-44a1-9c3e-45d8622cc6ef.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a/63e12ed2-50e6-4df2-8653-3a60b03bbd8a.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a/71a55226-8686-46eb-a888-8ab8e2487f23.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a/2e01c143-e8dc-4b11-8647-1da6a404d945.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a/5f3c5390-a614-44a1-9c3e-45d8622cc6ef.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("a/63e12ed2-50e6-4df2-8653-3a60b03bbd8a.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("a/71a55226-8686-46eb-a888-8ab8e2487f23.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("a/2e01c143-e8dc-4b11-8647-1da6a404d945.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("a/5f3c5390-a614-44a1-9c3e-45d8622cc6ef.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("a/63e12ed2-50e6-4df2-8653-3a60b03bbd8a.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("a/71a55226-8686-46eb-a888-8ab8e2487f23.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("a/2e01c143-e8dc-4b11-8647-1da6a404d945.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("a/5f3c5390-a614-44a1-9c3e-45d8622cc6ef.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #000; color: #fff; font-family: Onest, sans-serif; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+input, select { font: inherit; }
+.wrap { max-width: 1440px; margin: 0 auto; background: #000; overflow: hidden; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.pill { border-radius: 99px; }
+.nav-glass { display: flex; align-items: center; justify-content: space-between; background: rgba(18,18,18,.4); backdrop-filter: blur(24px) saturate(1.8); -webkit-backdrop-filter: blur(24px) saturate(1.8); border: 1px solid rgba(255,255,255,.22); border-radius: 99px; box-shadow: 0 12px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18); padding: 10px 14px 10px 26px; }
+.nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+.nav-links a:hover { color: #D3FD50; }
+.btn-lime { display: inline-block; font-size: 16px; font-weight: 600; background: #D3FD50; border: 3px solid #D3FD50; color: #000; border-radius: 99px; padding: 20px 36px; }
+.btn-lime:hover { background: #fff; border-color: #fff; }
+.btn-ghost { display: inline-block; font-size: 16px; font-weight: 400; border: 1px solid #fff; border-radius: 99px; padding: 22px 36px; color: #fff; }
+.btn-ghost:hover { background: #fff; color: #000; }
+.img-cover { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hairline { border-top: 1px solid rgba(255,255,255,.25); }
+.tab { font: 600 17px/1 Onest, sans-serif; border: 1px solid rgba(255,255,255,.4); background: transparent; color: #fff; border-radius: 99px; padding: 18px 30px; }
+.tab.on { background: #D3FD50; color: #000; border-color: #D3FD50; }
+.eff-card { border: 1px solid rgba(255,255,255,.25); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.eff-card:hover { border-color: #D3FD50; }
+.gal-tile { position: relative; height: 300px; border: 1px solid rgba(255,255,255,.12); }
+.gal-tile:hover img { filter: brightness(.82); }
+.gal-code { position: absolute; top: 10px; left: 12px; pointer-events: none; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field label { font-size: 12px; font-weight: 600; letter-spacing: .14em; color: #b5b5b5; }
+.field select, .field input { background: #000; border: 1px solid rgba(255,255,255,.4); border-radius: 10px; color: #fff; padding: 13px 14px; font-size: 15px; }
+.faq-row:hover { background: rgba(211,253,80,.06); }
+.faq-q { width: 100%; display: grid; grid-template-columns: 70px 1fr auto; gap: 24px; align-items: center; background: none; border: none; color: #fff; text-align: left; padding: 22px 0; min-height: 44px; }
+.num-badge { font-size: 12px; font-weight: 800; letter-spacing: .2em; background: #D3FD50; color: #000; justify-self: start; padding: 3px 8px; }
+.foot-ic { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.5); border-radius: 99px; }
+.foot-ic:hover { background: #fff; color: #000; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div style="position:relative;z-index:3;padding:16px 20px">
+    <nav class="nav-glass">
+      <img src="a/c7ecb388-c840-452f-99dc-80f6ac34266f.png" alt="Foto Duki" style="height:40px;width:auto">
+      <div style="display:flex;align-items:center;gap:26px">
+        <div class="nav-links">
+          <a href="#birac">Cenovnik</a><a href="#efekti">Efekti</a><a href="#galerija">Galerija</a><a href="#paket">Paket</a><a href="#faq">FAQ</a>
+        </div>
+        <a href="tel:+381631117271" style="display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:0 22px">063 111 7271</a>
+      </div>
+    </nav>
+  </div>
+
+  <div style="position:relative;height:760px;margin-top:-90px">
+    <img class="img-cover" style="position:absolute;inset:0;height:760px" src="a/401a7599-e1c1-4ac7-b299-4c7ce0ec6714.jpg" alt="">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,.58)"></div>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 40px 54px">
+      <div style="font:300 15px/1 Onest,sans-serif;letter-spacing:.28em;margin-bottom:20px">FOTOGRAFISANJE DOGAĐAJA · NOVI SAD</div>
+      <h1 style="margin:0 0 36px">
+        <span style="display:block;font:300 112px/.95 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase">Trenuci prolaze.</span>
+        <span style="display:block;font:800 116px/.95 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase">Fotografije ih <span style="color:#D3FD50">vraćaju.</span></span>
+      </h1>
+      <div style="display:flex;gap:18px">
+        <a class="btn-lime" href="#birac">Pogledaj cenovnik</a>
+        <a class="btn-ghost" href="#birac">Proveri dostupnost</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hairline" style="border-bottom:1px solid rgba(255,255,255,.25);padding:20px 0;overflow:hidden">
+    <div style="display:flex;width:max-content;animation:marquee 26s linear infinite" id="marquee"></div>
+  </div>
+
+  <div id="birac" style="padding:100px 40px 90px">
+    <div style="text-align:center;margin-bottom:40px">
+      <h2 style="font:800 84px/.96 Onest,sans-serif;letter-spacing:-.03em;text-transform:uppercase;margin:0 0 20px">Koji je vaš <span style="color:#D3FD50">događaj?</span></h2>
+      <p style="font:300 17px/1.6 Onest,sans-serif;color:#b5b5b5;max-width:52ch;margin:0 auto">Izaberite tip proslave — cena, trajanje i šta je uključeno prikazuju se odmah.</p>
+    </div>
+    <div id="tabs" style="display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:36px"></div>
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:0;border:3px solid #D3FD50;border-radius:14px;overflow:hidden">
+      <div style="padding:46px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px">
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap">
+            <span id="ev-name" style="font:800 30px/1 Onest,sans-serif;text-transform:uppercase;letter-spacing:-.01em"></span>
+            <span id="ev-dur" style="font:300 13px/1 Onest,sans-serif;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:8px 16px"></span>
+          </div>
+          <div id="ev-price" style="font:800 110px/1 Onest,sans-serif;letter-spacing:-.03em;color:#D3FD50;margin-bottom:26px"></div>
+          <div id="ev-inc" style="display:flex;flex-direction:column;gap:12px"></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <a href="tel:+381631117271" style="font-size:15px;font-weight:600;background:#D3FD50;color:#000;border-radius:99px;padding:16px 30px;white-space:nowrap">Rezerviši ovaj paket</a>
+          <span style="font:300 13px/1.4 Onest,sans-serif;color:#8a8a8a">van Novog Sada — putni trošak</span>
+        </div>
+      </div>
+      <div style="min-height:520px;border-left:3px solid #D3FD50;position:relative"><img id="ev-img" class="img-cover" style="position:absolute;inset:0;height:100%" src="a/8e03fced-d6a7-44a4-9cab-52ce40432130.jpg" alt=""></div>
+    </div>
+  </div>
+
+  <div id="efekti" class="hairline" style="padding:90px 40px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+      <h2 style="font:800 74px/.98 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin:0">Specijalni <span style="color:#D3FD50">efekti</span></h2>
+      <span style="font:300 14px/1 Onest,sans-serif;color:#b5b5b5">dodatak na bilo koji paket · cene na upit</span>
+    </div>
+    <p style="font:300 17px/1.6 Onest,sans-serif;color:#b5b5b5;max-width:56ch;margin:0 0 44px">Trenutak koji sala pamti — prvi ples u laserima, oblak dima ili kiša balona. Efekti se ugovaraju uz termin fotografisanja.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div class="eff-card" style="grid-row:span 2">
+        <div style="flex:1;min-height:340px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="a/efaf4e23-9f47-4643-8a63-4b31adacf45b.jpg" alt=""></div>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:.2em;color:#D3FD50">EFEKAT 01</span>
+          <span style="font:800 30px/1 Onest,sans-serif;letter-spacing:-.01em;text-transform:uppercase">Laser prvi ples</span>
+          <span style="font:300 14px/1.6 Onest,sans-serif;color:#b5b5b5">Zvezdano nebo oko prvog plesa — najtraženiji efekat za svadbe.</span>
+        </div>
+      </div>
+      <div class="eff-card">
+        <div style="height:170px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="a/4f274e12-83d1-47e4-94dd-7c65372bb172.jpg" alt=""></div>
+        <div style="padding:18px 22px 22px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:.2em;color:#D3FD50">EFEKAT 02</span>
+          <span style="font:800 24px/1 Onest,sans-serif;letter-spacing:-.01em;text-transform:uppercase">Teški dim</span>
+          <span style="font:300 14px/1.55 Onest,sans-serif;color:#b5b5b5">Ples na oblaku — dim koji se drži poda i ne diže se u salu.</span>
+        </div>
+      </div>
+      <div class="eff-card">
+        <div style="height:170px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="a/8e03fced-d6a7-44a4-9cab-52ce40432130.jpg" alt=""></div>
+        <div style="padding:18px 22px 22px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:.2em;color:#D3FD50">EFEKAT 03</span>
+          <span style="font:800 24px/1 Onest,sans-serif;letter-spacing:-.01em;text-transform:uppercase">Magla</span>
+          <span style="font:300 14px/1.55 Onest,sans-serif;color:#b5b5b5">Mekano, difuzno svetlo za dramatične kadrove.</span>
+        </div>
+      </div>
+      <div class="eff-card">
+        <div style="height:170px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="a/863d7e80-1fb9-47e0-a61f-529e57931355.jpg" alt=""></div>
+        <div style="padding:18px 22px 22px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:.2em;color:#D3FD50">EFEKAT 04</span>
+          <span style="font:800 24px/1 Onest,sans-serif;letter-spacing:-.01em;text-transform:uppercase">Balončići</span>
+          <span style="font:300 14px/1.55 Onest,sans-serif;color:#b5b5b5">Razigrani detalj — omiljen na krštenjima i dečijim rođendanima.</span>
+        </div>
+      </div>
+      <div class="eff-card">
+        <div style="height:170px;position:relative"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="a/255b33fa-167f-4ae4-add2-5cebfa0782d2.jpg" alt=""></div>
+        <div style="padding:18px 22px 22px;display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:.2em;color:#D3FD50">EFEKAT 05</span>
+          <span style="font:800 24px/1 Onest,sans-serif;letter-spacing:-.01em;text-transform:uppercase">Balon eksplozija</span>
+          <span style="font:300 14px/1.55 Onest,sans-serif;color:#b5b5b5">Finale večeri — kiša konfeta i balona u jednom kadru.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#D3FD50;color:#000;padding:64px 40px">
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center">
+      <div>
+        <h2 style="font:800 54px/1 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin:0 0 18px">Fotografije za 7–14 dana.</h2>
+        <p style="font:400 16px/1.6 Onest,sans-serif;margin:0;max-width:46ch">Bez USB-a i čekanja — dobijate šifru i link, a cela galerija vas čeka u klijentskom portalu, u punoj rezoluciji.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:14px;align-items:baseline;border-bottom:1px solid rgba(0,0,0,.3);padding-bottom:12px"><span style="font:800 15px/1 Onest,sans-serif">01</span><span style="font:400 16px/1.4 Onest,sans-serif">Fotografišemo vaš događaj</span></div>
+        <div style="display:flex;gap:14px;align-items:baseline;border-bottom:1px solid rgba(0,0,0,.3);padding-bottom:12px"><span style="font:800 15px/1 Onest,sans-serif">02</span><span style="font:400 16px/1.4 Onest,sans-serif">Obrada — 7 do 14 dana</span></div>
+        <div style="display:flex;gap:14px;align-items:baseline"><span style="font:800 15px/1 Onest,sans-serif">03</span><span style="font:400 16px/1.4 Onest,sans-serif">Šifra + link — galerija u klijentskom portalu</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="galerija" class="hairline">
+    <div style="display:flex;justify-content:space-between;padding:64px 40px 24px">
+      <h2 style="font:800 54px/1 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin:0">Galerija</h2>
+      <span style="font:300 13px/1 Onest,sans-serif;letter-spacing:.14em;color:#b5b5b5;align-self:end">KONTAKT-ŠIT · 2024 — 2026</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr)" id="gal"></div>
+  </div>
+
+  <div class="hairline" style="display:grid;grid-template-columns:360px 1fr;gap:64px;padding:100px 40px;align-items:center">
+    <div style="height:440px;position:relative;border-radius:14px;overflow:hidden"><img class="img-cover" style="position:absolute;inset:0;height:100%" src="a/85fd4b17-1468-43c6-8ddb-a4c47db12f38.jpg" alt="Duško Milankov"></div>
+    <div>
+      <h2 style="font:800 54px/1 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin:0 0 24px">O meni <span style="color:#D3FD50">*</span></h2>
+      <p style="font:300 16px/1.75 Onest,sans-serif;color:#cfcfcf;margin:0 0 28px">Ja sam Duško Milankov i fotografijom sam počeo da se bavim iz hobija. Ubrzo sam se odlučio da upišem kurs kako bih stekao znanje i veštine, gde sam prošao od početnog, studijskog do terenskog kursa za fotografisanje. Nakon toga sam uzeo profesionalnu opremu i počeo da se bavim fotografisanjem većih događaja. Smatram da je fotografija jedini vid da zamrznete vaše dragocene trenutke i da time sačuvate vaše uspomene kojima možete da se divite i razmenjujete sa prijateljima i familijom kako biste se rado sećali na njih.</p>
+      <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.25)">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.25)"><span style="font:300 18px/1 Onest,sans-serif">Početni kurs fotografije</span><span style="font-size:12px;letter-spacing:.2em;color:#D3FD50">SERTIFIKAT 01</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.25)"><span style="font:300 18px/1 Onest,sans-serif">Studijski kurs</span><span style="font-size:12px;letter-spacing:.2em;color:#D3FD50">SERTIFIKAT 02</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.25)"><span style="font:300 18px/1 Onest,sans-serif">Terenski kurs</span><span style="font-size:12px;letter-spacing:.2em;color:#D3FD50">SERTIFIKAT 03</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="paket" class="hairline" style="padding:100px 40px">
+    <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid #D3FD50;color:#D3FD50;font-size:12px;font-weight:600;letter-spacing:.2em;padding:9px 18px;border-radius:99px;margin-bottom:28px"><span style="width:7px;height:7px;border-radius:50%;background:#D3FD50"></span>UPIT ZA PAR MINUTA</div>
+    <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:start">
+      <div>
+        <h2 style="font:800 74px/.98 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin:0 0 26px">Sastavi<br><span style="font-weight:300">svoj paket.</span></h2>
+        <p style="font:300 17px/1.7 Onest,sans-serif;color:#b5b5b5;margin:0;max-width:44ch">Izaberite tip događaja, trajanje i album — okvirnu ponudu dobijate u odgovoru na upit, bez skrivenih stavki. Dostupnost datuma potvrđujem odmah.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div class="field"><label>TIP DOGAĐAJA</label><select id="cfg-tip"><option>Venčanje</option><option>Pre venčanja</option><option>Krštenje</option><option>18. rođendan</option><option>Dečiji rođendan</option></select></div>
+          <div class="field"><label>TRAJANJE</label><select id="cfg-sati"><option>Do 4 sata</option><option>Do 6 sati</option><option>Ceo dan</option></select></div>
+          <div class="field"><label>MESTO PROSLAVE</label><input id="cfg-lok" placeholder="Novi Sad / sala / crkva"></div>
+          <div class="field"><label>ŠTAMPANI ALBUM</label><button id="cfg-album" style="text-align:left;border:1px solid #fff;border-radius:99px;padding:12px 18px;font-size:14px;font-weight:500;background:#D3FD50;color:#000">Da — štampani album</button></div>
+        </div>
+        <div style="background:#D3FD50;color:#000;border-radius:14px;padding:26px">
+          <div style="font-size:12px;font-weight:800;letter-spacing:.22em;margin-bottom:12px">VAŠ PAKET *</div>
+          <div id="cfg-summary" style="font:300 16px/1.6 Onest,sans-serif;border-bottom:1px solid rgba(0,0,0,.25);padding-bottom:14px;margin-bottom:16px"></div>
+          <button id="cfg-send" style="width:100%;background:#000;color:#fff;border:none;border-radius:99px;font-size:15px;font-weight:600;padding:16px">Pošalji upit sa ovim paketom</button>
+          <div id="cfg-sent" style="display:none;font-size:15px;font-weight:600">Upit je poslat. Duško se javlja u toku dana sa ponudom i potvrdom termina.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="faq" class="hairline" style="padding:100px 40px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:30px">
+      <h2 style="font:800 54px/1 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin:0">Česta pitanja</h2>
+      <span style="font:300 14px/1 Onest,sans-serif;color:#b5b5b5">sve o terminima, cenama i isporuci</span>
+    </div>
+    <div id="faq-list" style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.25)"></div>
+  </div>
+
+  <footer class="hairline" style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:60px;padding:64px 40px 28px">
+    <div>
+      <img src="a/c7ecb388-c840-452f-99dc-80f6ac34266f.png" alt="Foto Duki" style="height:56px;width:auto;margin-bottom:16px">
+      <p style="font:300 14px/1.7 Onest,sans-serif;color:#b5b5b5;max-width:34ch;margin:0">Fotografisanje venčanja, krštenja i rođendana — Novi Sad i okolina.</p>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;letter-spacing:.24em;color:#D3FD50;margin-bottom:18px">KONTAKT PODACI</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font:300 15px/1 Onest,sans-serif">
+        <a href="tel:+381631117271">Tel: 063 111 7271</a>
+        <a href="mailto:duskomilankov@gmail.com">duskomilankov@gmail.com</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;letter-spacing:.24em;color:#D3FD50;margin-bottom:18px">PRATITE NAS</div>
+      <div style="display:flex;gap:12px">
+        <a href="#" aria-label="Instagram" class="foot-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"></circle></svg></a>
+        <a href="#" aria-label="Facebook" class="foot-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5h2.5V5.5H14a4 4 0 0 0-4 4v2H7.5v3H10v6h3v-6h2.5l.5-3H13v-1.5a1 1 0 0 1 1-1z"></path></svg></a>
+      </div>
+    </div>
+    <div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;font:300 13px/1 Onest,sans-serif;color:#8a8a8a">
+      <span>© 2026 Foto Duki</span><span>Novi Sad · Sva prava zadržana</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+var PK = [
+  { name: 'Mladenci', price: '€200', dur: '2 sata', img: 'photos/g04.jpg', inc: ['1 lokacija u Novom Sadu', 'Osnovna obrada fotografija', 'Link za preuzimanje'] },
+  { name: 'Crkva + opština', price: '€300', dur: '4 sata', img: 'photos/x13.jpg', inc: ['Crkva + opština', 'Obrada fotografija', 'Link za preuzimanje'] },
+  { name: 'Svadbarski', price: '€400', dur: '8 sati', img: 'photos/g13.jpg', inc: ['Crkva + opština + restoran', 'Prodaja fotografija gostima — 250 din', 'USB sa svim fotografijama', 'Obrada + link za preuzimanje'] },
+  { name: 'Krštenje', price: '€50', dur: 'do 2h', img: 'photos/krstenje-card.jpg', inc: ['1 lokacija u Novom Sadu', 'Obrada fotografija', 'Isporuka 7–14 dana'] },
+  { name: 'Punoletstvo', price: '€150', dur: 'do 2h', img: 'photos/18-rodjendan-card.jpg', inc: ['Obrada svih fotografija', 'Link za preuzimanje'] }
+];
+var evSel = 0;
+function renderTabs() {
+  var t = document.getElementById('tabs');
+  t.innerHTML = '';
+  PK.forEach(function (p, j) {
+    var b = document.createElement('button');
+    b.className = 'tab' + (j === evSel ? ' on' : '');
+    b.textContent = p.name;
+    b.onclick = function () { evSel = j; renderTabs(); renderSel(); };
+    t.appendChild(b);
+  });
+}
+function renderSel() {
+  var p = PK[evSel];
+  document.getElementById('ev-name').textContent = p.name;
+  document.getElementById('ev-dur').textContent = p.dur;
+  document.getElementById('ev-price').textContent = p.price;
+  document.getElementById('ev-img').src = p.img;
+  var inc = document.getElementById('ev-inc');
+  inc.innerHTML = '';
+  p.inc.forEach(function (x) {
+    var d = document.createElement('div');
+    d.style.cssText = 'display:flex;gap:12px;align-items:baseline;font:300 16px/1.5 Onest,sans-serif;color:#d5d5d5';
+    d.innerHTML = '<span style="color:#D3FD50;font-weight:800">✳</span><span></span>';
+    d.lastChild.textContent = x;
+    inc.appendChild(d);
+  });
+}
+renderTabs(); renderSel();
+
+var MQ = ['Venčanja', 'Pre venčanja', 'Krštenja', '18. rođendani', 'Dečiji rođendani'];
+var mq = document.getElementById('marquee');
+for (var r = 0; r < 2; r++) {
+  var half = document.createElement('div');
+  half.style.cssText = 'display:flex;align-items:center;gap:34px;padding-right:34px;font:300 26px/1 Onest,sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap';
+  MQ.forEach(function (s) { half.innerHTML += '<span>' + s + '</span><span style="color:#D3FD50">✳</span>'; });
+  mq.appendChild(half);
+}
+
+var GAL = [
+  ['g16', '01', 'Ve', 'photos/g16.jpg'], ['g08', '02', 'Kr', 'photos/g08.jpg'], ['x02', '03', '18', 'photos/x02.jpg'], ['x15', '04', 'Pv', 'photos/x15.jpg'],
+  ['g05', '05', 'Pl', 'photos/g05.jpg'], null, ['g02', '06', 'Ar', 'photos/g02.jpg'],
+  ['g19', '07', 'Cr', 'photos/g19.jpg'], ['x06', '08', 'Sl', 'photos/x06.jpg'], ['g07', '09', 'Ve', 'photos/g07.jpg'], ['x11', '10', 'De', 'photos/x11.jpg']
+];
+var gal = document.getElementById('gal');
+GAL.forEach(function (g) {
+  var d = document.createElement('div');
+  if (!g) {
+    d.className = 'gal-tile';
+    d.style.cssText += ';grid-column:span 2;display:flex;align-items:center;justify-content:center;background:#000';
+    d.innerHTML = '<div style="text-align:center"><div style="font:800 40px/1.1 Onest,sans-serif;letter-spacing:-.02em;text-transform:uppercase">Vaš <span style="color:#D3FD50">događaj?</span></div><a href="tel:+381631117271" style="display:inline-block;margin-top:14px;font:300 14px/1 Onest,sans-serif;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:4px">063 111 7271 →</a></div>';
+  } else {
+    d.className = 'gal-tile';
+    d.innerHTML = '<img class="img-cover" style="position:absolute;inset:0;height:100%" src="' + g[3] + '" alt=""><div class="gal-code"><span style="font-size:10px;letter-spacing:.14em;color:#b5b5b5">' + g[1] + '</span><div style="font:800 36px/1 Onest,sans-serif;letter-spacing:-.02em;color:#fff">' + g[2] + '</div></div>';
+  }
+  gal.appendChild(d);
+});
+
+var album = true;
+function summary() {
+  var lok = document.getElementById('cfg-lok').value.trim();
+  document.getElementById('cfg-summary').textContent =
+    document.getElementById('cfg-tip').value + ' · ' +
+    document.getElementById('cfg-sati').value.toLowerCase() + ' · ' +
+    (lok || 'lokacija: naknadno') + ' · ' + (album ? 'sa foto-albumom' : 'bez albuma');
+}
+['cfg-tip', 'cfg-sati', 'cfg-lok'].forEach(function (id) { document.getElementById(id).addEventListener('input', summary); });
+document.getElementById('cfg-album').onclick = function () {
+  album = !album;
+  this.textContent = album ? 'Da — štampani album' : 'Ne — samo digitalno';
+  this.style.background = album ? '#D3FD50' : 'transparent';
+  this.style.color = album ? '#000' : '#fff';
+  summary();
+};
+document.getElementById('cfg-send').onclick = function () {
+  this.style.display = 'none';
+  document.getElementById('cfg-sent').style.display = 'block';
+};
+summary();
+
+var FAQ = [
+  ['Da li fotografišete van Novog Sada?', 'Da — paketi podrazumevaju lokacije u Novom Sadu, a za termine van grada dodaje se samo putni trošak.'],
+  ['Kada i kako dobijamo fotografije?', 'Obrada traje 7–14 dana. Dobijate šifru i link, a cela galerija vas čeka u klijentskom portalu u punoj rezoluciji.'],
+  ['Šta pokriva Svadbarski paket od €400?', 'Ceo dan, 8 sati: crkva, opština i restoran, prodaja fotografija gostima po 250 din i USB sa svim fotografijama.'],
+  ['Mogu li da dodam specijalne efekte na paket?', 'Da — laser prvi ples, teški dim, magla, balončići i balon eksplozija ugovaraju se uz termin fotografisanja, cene na upit.'],
+  ['Kako rezervišem termin?', 'Pozovite 063 111 7271 ili pošaljite upit iz konfiguratora — odgovor sa potvrdom termina stiže u toku dana, bez obaveze.']
+];
+var faqOpen = 0;
+function renderFaq() {
+  var list = document.getElementById('faq-list');
+  list.innerHTML = '';
+  FAQ.forEach(function (f, j) {
+    var row = document.createElement('div');
+    row.className = 'faq-row';
+    row.style.borderBottom = '1px solid rgba(255,255,255,.25)';
+    var open = faqOpen === j;
+    row.innerHTML = '<button class="faq-q"><span class="num-badge">0' + (j + 1) + '</span><span style="font:300 26px/1.2 Onest,sans-serif;text-transform:uppercase"></span><span style="font:800 26px/1 Onest,sans-serif;color:#D3FD50">' + (open ? '−' : '+') + '</span></button>' +
+      (open ? '<div style="padding:0 0 26px 94px;max-width:80ch"><span style="font:300 16px/1.7 Onest,sans-serif;color:#b5b5b5"></span></div>' : '');
+    row.querySelector('.faq-q span:nth-child(2)').textContent = f[0];
+    if (open) row.querySelector(':scope > div span').textContent = f[1];
+    row.querySelector('.faq-q').onclick = function () { faqOpen = open ? -1 : j; renderFaq(); };
+    list.appendChild(row);
+  });
+}
+renderFaq();
+</script>
+
+</body></html>
